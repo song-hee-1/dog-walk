@@ -48,6 +48,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'walk.apps.WalkConfig',
     'django.contrib.admin',
     'django.contrib.auth',
