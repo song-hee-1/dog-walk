@@ -1,12 +1,6 @@
 from rest_framework import serializers
 
-from .models import Owner, Pet, Walk
-
-
-class OwnerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Owner
-        fields = '__all__'
+from .models import Pet, Walk
 
 
 class PetSerializer(serializers.ModelSerializer):

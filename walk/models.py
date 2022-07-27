@@ -1,18 +1,8 @@
 from django.db import models
 
 
-class Owner(models.Model):
-    name = models.CharField(max_length=10, null=False)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'owner'
-
-
 class Pet(models.Model):
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner = models.ForeignKey('account.User', on_delete=models.CASCADE)
     breed = models.CharField(max_length=15, null=False)
     birth = models.DateField(null=False)
     name = models.CharField(max_length=10, null=False)
