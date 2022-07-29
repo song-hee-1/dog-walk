@@ -5,9 +5,8 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register('log', views.WalkViewSet)
+router.register('', views.PetViewSet)
 
 urlpatterns = [
-    path('', views.index, name='index'),
     path('', include(router.urls))
 ]

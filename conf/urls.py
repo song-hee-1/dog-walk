@@ -25,6 +25,6 @@ router.register('user', UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('accounts/', include('accounts.urls')),
-    path('walk/', include('walk.urls')),
+    path('pet/', include('pet.urls')),
     path('admin/', admin.site.urls),
 ]
