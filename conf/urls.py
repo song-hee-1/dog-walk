@@ -26,5 +26,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('accounts/', include('accounts.urls')),
     path('pet/', include('pet.urls')),
+    path('walk/', include('walk.urls')),
     path('admin/', admin.site.urls),
 ]
