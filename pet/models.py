@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Pet(models.Model):
-    owner = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
+    owner_id = models.ForeignKey('accounts.User', on_delete=models.CASCADE, db_column='owner_id')
     breed = models.CharField(max_length=30, null=False)
     birth = models.DateField(null=False)
     name = models.CharField(max_length=10, null=False)
@@ -12,5 +12,3 @@ class Pet(models.Model):
 
     class Meta:
         db_table = 'pet'
-
-
