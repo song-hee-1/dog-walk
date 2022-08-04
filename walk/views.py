@@ -5,43 +5,13 @@ from .serializers import WalkSerializer
 
 
 class WalkViewSet(viewsets.ModelViewSet):
-    queryset = Walk.objects.all()
+    queryset = Walk.objects.all().order_by('date', 'time')
     serializer_class = WalkSerializer
 
-
-# @action(detail=False, methods=['GET', 'POST'], url_path="^(?P<pet_id>[^/.]+)/walk", serializer_class=WalkSerializer)
-#     def get_walk(self, request, **kwargs):
-#         if self.request.method == 'GET':
-#             obj_id = self.kwargs['pet_id']
-#             walk = Walk.objects.filter(pet_id=obj_id)
-#             serializer = WalkSerializer(walk, many=True)
-#             return Response(serializer.data)
-#         elif self.request.method == 'POST':
-#             serializer = WalkSerializer(data=request.data)
-#             if serializer.is_valid():
-#                 serializer.save()
-#                 return Response({'status': 'new walklog set'})
-#             else:
-#                 return Response(serializer.errors,
-#                                 status=status.HTTP_400_BAD_REQUEST)
-#
-#     @action(detail=True, methods=['GET', 'PUT', 'DELETE'],
-#             serializer_class=WalkSerializer, url_path=r'walk/(?P<walk_id>\d+)')
-#     def walk_detail(self, request, pk, **kwargs):
-#         if self.request.method == 'GET':
-#             pet_id = self.kwargs['pk']
-#             walk_id = self.kwargs['walk_id']
-#             walk = Walk.objects.filter(pet_id=pet_id, id=walk_id)
-#             serializer = WalkSerializer(walk, many=True)
-#             return Response(serializer.data)
-#         elif self.request.method == 'PUT':
-#             walk_data = JSONParser().parse(request)
-#             serializer = WalkSerializer(data=walk_data)
-#             if serializer.is_valid():
-#                 serializer.save()
-#                 return JsonResponse(serializer.data)
-#             else:
-#                 return JsonResponse(serializer.errors,
-#                                     status=status.HTTP_400_BAD_REQUEST)
-#         elif self.request.method == 'DELTE':
-#             pass
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if 'pet_id' in self.request.GET:
+            queryset = queryset.filter(pet_id__in=self.request.GET.getlist('pet_id'))
+        if 'owner_id' in self.request.GET:
+            queryset = queryset.filter(pet_id__owner_id__in=self.request.GET.getlist('owner_id'))
+        return queryset
