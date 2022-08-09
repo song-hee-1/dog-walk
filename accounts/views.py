@@ -1,18 +1,12 @@
 from django.http import HttpResponseRedirect
 
 from rest_framework import viewsets
-from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 
 from .models import User
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
+from .serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
